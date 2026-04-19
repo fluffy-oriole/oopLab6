@@ -8,6 +8,10 @@ public class Train extends Transport {
         super(name, 100);
     }
 
+    public Train(String name, double state) {
+        super(name, state);
+    }
+
 
     public Train(String name, int state) {
         super(name, state);

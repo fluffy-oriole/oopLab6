@@ -12,8 +12,6 @@ import java.sql.SQLException;
 import java.util.Objects;
 
 public class Controller {
-
-
     public void execute(MainFrame mainFrame, TransportTable model) {
         mainFrame.getTable().setModel(model);
         mainFrame.getSaveButton().addActionListener(new ActionListener() {

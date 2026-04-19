@@ -81,20 +81,11 @@ public class TransportTable extends AbstractTableModel {
         }
     }
 
-    public void addTransport(int object, String name) {
-        Transport_company.add_transport(object, name);
-        this.changeTable();
-    }
-
     public void addTransport(Transport transportToAdd) {
         Transport_company.add_transport(transportToAdd);
         this.changeTable();
     }
 
-    public void removeTransport(Transport t) {
-        Transport_company.remove_transport(t);
-        this.changeTable();
-    }
 
     public void filterTransport(boolean[] types, double maxStateFilter, double minStateFilter) {
         ArrayList<Transport> filteredList = new ArrayList<>();

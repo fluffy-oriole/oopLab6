@@ -22,24 +22,6 @@ public class Transport_company {
         return expresses;
     }
 
-    public static Transport add_transport(int object, String name){
-        if (object == 1){
-            Car new_car = new Car(name);
-            cars.add(new_car);
-            return new_car;
-        }
-        else if (object == 2){
-            Train new_train = new Train(name, 100);
-            trains.add(new_train);
-            return new_train;
-        }
-        else if (object == 3){
-            Express new_express = new Express(name);
-            expresses.add(new_express);
-            return new_express;
-        }
-        return null;
-    }
     public static void add_transport(Transport transport) {
         if (Objects.equals(transport.getType(), "Машина")){
             Car car = (Car)transport;
@@ -55,31 +37,6 @@ public class Transport_company {
         }
     }
 
-    public static void remove_transport(Transport transport) {
-        if (transport != null) {
-            try {
-                if (Objects.equals(transport.getType(), "Машина")){
-                    cars.remove((Car)transport);
-                }
-                else if (Objects.equals(transport.getType(), "Поезд")){
-                    trains.remove((Train)transport);
-                }
-                else {
-                    expresses.remove((Express)transport);
-                }
-            }
-            catch (InputMismatchException e){
-                System.out.println("Значение должно быть числом");
-            }
-            catch (IndexOutOfBoundsException e){
-                System.out.print("Транспортного средства с таки индексом нет");
-            }
-            catch (Exception e){
-                System.out.println("Произошла неизвестная ошибка");
-            }
-        }
-    }
-
     public static Transport find_transport(String name){
         Car found_car = null;
         double maxState = -1;
@@ -92,7 +49,6 @@ public class Transport_company {
         if (maxState != -1) {
             return found_car;
         }
-
 
         Train found_train = null;
         for (Train train : trains) {
@@ -117,7 +73,6 @@ public class Transport_company {
         if (maxState != -1) {
             return found_express;
         }
-
         return null;
     }
 }

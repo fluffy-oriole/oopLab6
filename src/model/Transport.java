@@ -1,10 +1,10 @@
 package model;
 
-public abstract class Transport implements RouteCalculable, Displayable {
+public abstract class Transport {
     private final String name;
     private double state;
 
-    public Transport(String name, int state){
+    public Transport(String name, double state){
         this.name = name;
         this.state = state;
     }
@@ -23,14 +23,5 @@ public abstract class Transport implements RouteCalculable, Displayable {
 
     public String getName() {
         return name;
-    }
-
-    public void setState(double state) {
-        this.state = state;
-    }
-
-    public void display() {
-        System.out.println("Название: " + getName());
-        System.out.println("Состояние: " + getState());
     }
 }

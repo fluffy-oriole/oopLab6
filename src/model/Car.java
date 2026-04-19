@@ -4,7 +4,7 @@ public class Car extends Transport{
     public Car(String name) {
         super(name, 100);
     }
-    public Car(String name, int state){
+    public Car(String name, double state){
         super(name, state);
     }
 

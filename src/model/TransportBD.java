@@ -27,11 +27,11 @@ public class TransportBD {
             Transport transportToAdd = null;
             switch (type) {
                 case "Машина":
-                    transportToAdd = new Car(result.getString("name"), result.getInt("state")); break;
+                    transportToAdd = new Car(result.getString("name"), result.getDouble("state")); break;
                 case "Поезд":
-                    transportToAdd = new Train(result.getString("name"), result.getInt("state")); break;
+                    transportToAdd = new Train(result.getString("name"), result.getDouble("state")); break;
                 case "Экспресс":
-                    transportToAdd = new Express(result.getString("name"), result.getInt("state")); break;
+                    transportToAdd = new Express(result.getString("name"), result.getDouble("state")); break;
             }
             if (transportToAdd != null) {
                 model.addTransport(transportToAdd);

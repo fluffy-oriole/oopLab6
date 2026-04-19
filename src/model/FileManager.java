@@ -76,42 +76,26 @@ public class FileManager {
                 try (FileReader reader = new FileReader(file)){
                     BufferedReader buffReader = new BufferedReader(reader);
                     int size = Integer.parseInt(buffReader.readLine().trim());
-                    Transport current_transport;
                     String line;
                     for (int i = 0; i < size; i++) {
                         line = buffReader.readLine().trim();
-                        current_transport = Transport_company.add_transport(1, line.split(" ")[0]);
-                        if (current_transport != null){
-                            current_transport.setState((Double.parseDouble(line.split(" ")[1])));
-                        }
-                        else {
-                            JOptionPane.showMessageDialog(parentFrame, "Поврежденный или неправильный файл");
-                            return;
-                        }
+                        String nameToAdd = line.split(" ")[0];
+                        double stateToAdd = Double.parseDouble(line.split(" ")[1]);
+                        Transport_company.add_transport(new Car(nameToAdd, stateToAdd));
                     }
                     size = Integer.parseInt(buffReader.readLine().trim());
                     for (int i = 0; i < size; i++) {
                         line = buffReader.readLine().trim();
-                        current_transport = Transport_company.add_transport(2, line.split(" ")[0]);
-                        if (current_transport != null){
-                            current_transport.setState((Double.parseDouble(line.split(" ")[1])));
-                        }
-                        else {
-                            JOptionPane.showMessageDialog(parentFrame, "Поврежденный или неправильный файл");
-                            return;
-                        }
+                        String nameToAdd = line.split(" ")[0];
+                        double stateToAdd = Double.parseDouble(line.split(" ")[1]);
+                        Transport_company.add_transport(new Train(nameToAdd, stateToAdd));
                     }
                     size = Integer.parseInt(buffReader.readLine().trim());
                     for (int i = 0; i < size; i++) {
                         line = buffReader.readLine().trim();
-                        current_transport = Transport_company.add_transport(3, line.split(" ")[0]);
-                        if (current_transport != null){
-                            current_transport.setState((Double.parseDouble(line.split(" ")[1])));
-                        }
-                        else {
-                            JOptionPane.showMessageDialog(parentFrame, "Поврежденный или неправильный файл");
-                            return;
-                        }
+                        String nameToAdd = line.split(" ")[0];
+                        double stateToAdd = Double.parseDouble(line.split(" ")[1]);
+                        Transport_company.add_transport(new Express(nameToAdd, stateToAdd));
                     }
                     model.changeTable();}
                 catch (IOException e) {
