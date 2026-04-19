@@ -13,7 +13,7 @@ import static javax.swing.SwingConstants.CENTER;
 public class MainFrame extends JFrame {
     static Color mainColor = new Color(13, 108, 247);
     static Color textColor = new Color(255, 255, 255);
-    static Color secondColor = new Color(246, 246, 246);
+    static Color secondColor = new Color(250, 250, 250);
     
     private final JTable table = new JTable();
     private final JButton saveButton = new JButton("Сохранить");

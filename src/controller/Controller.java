@@ -60,8 +60,6 @@ public class Controller {
                                 System.out.println(ex.getMessage());
                                 return;
                             }
-
-                            model.addTransport(dialog.getBox().getSelectedIndex() + 1, dialog.getTransportNameToAdd().getText());
                             dialog.dispose();
                         }
                         else {
