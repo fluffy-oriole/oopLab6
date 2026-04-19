@@ -1,6 +1,8 @@
 package model;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class TransportBD {
     public static Connection transportBD;
@@ -44,16 +46,35 @@ public class TransportBD {
         result.close();
     }
 
-    public static void writeInDB(Transport transport, TransportTable model) throws SQLException, ClassNotFoundException {
+    public static void writeInDB(Transport transport, TransportTable model) throws Exception {
         connectToBD();
-
+        for (Transport vehicle : TransportTable.getAllTransport()) {
+            if (Objects.equals(vehicle.getName(), transport.getName())) {
+                throw new Exception("Транспорт с таким именем уже существует");
+            }
+        }
         stab = transportBD.createStatement();
         result = stab.executeQuery("SELECT definition FROM transport_types WHERE value = '" +  transport.getType() + "'");
-
         stab.executeUpdate("INSERT INTO transports (type, name, state) VALUES ('"
                 + result.getString("definition") + "', '" + transport.getName() + "', '"
                 + transport.getState() + "')");
 
+        closeConnection();
+        readDB(model);
+    }
+
+    public static void deleteFromDB(String name, TransportTable model) throws SQLException, ClassNotFoundException {
+        connectToBD();
+        stab = transportBD.createStatement();
+        stab.executeUpdate("DELETE FROM transports WHERE name = '" + name + "'");
+        closeConnection();
+        readDB(model);
+    }
+
+    public static void updateStateInDB(String name, double state, TransportTable model) throws SQLException, ClassNotFoundException {
+        connectToBD();
+        stab = transportBD.createStatement();
+        stab.executeUpdate("UPDATE transports SET state='" + state + "' WHERE name='" + name + "'");
         closeConnection();
         readDB(model);
     }

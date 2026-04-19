@@ -53,14 +53,18 @@ public class Controller {
                                     break;
                             }
                             try {
-                                if (transportToAdd != null)
+                                if (transportToAdd != null) {
                                     TransportBD.writeInDB(transportToAdd, model);
+                                    dialog.dispose();
+                                }
                             }
                             catch (SQLException | ClassNotFoundException ex) {
                                 System.out.println(ex.getMessage());
                                 return;
+                            } catch (Exception ex) {
+                                JOptionPane.showMessageDialog(dialog, ex.getMessage());
                             }
-                            dialog.dispose();
+
                         }
                         else {
                             JOptionPane.showMessageDialog(dialog, "Название не может быть пустым", "Ошибка", JOptionPane.ERROR_MESSAGE);
@@ -80,14 +84,11 @@ public class Controller {
                         String input = dialog.getDeleteTextField().getText();
                         if (!Objects.equals(input, "")){
                             try {
-                                int rowToDelete = Integer.parseInt(input);
-                                Transport currentTransport = TransportTable.getAllTransport().get(rowToDelete - 1);
-                                model.removeTransport(currentTransport);
-                                dialog.dispose();
+                                TransportBD.deleteFromDB(input, model);
+                            } catch (SQLException | ClassNotFoundException ex) {
+                                JOptionPane.showMessageDialog(dialog, ex.getMessage());
                             }
-                            catch (NumberFormatException exception) {
-                                JOptionPane.showMessageDialog(dialog, "Можно вводить только числа");
-                            }
+                            dialog.dispose();
                         }
                         else {
                             JOptionPane.showMessageDialog(dialog, "Поле не должно быть пустым");
@@ -145,16 +146,21 @@ public class Controller {
                                 if (dialog.getFoundTransport() != null && calculatedState >= 0) {
                                     dialog.getTime().setText(Long.toString( Math.round(travelTime * 10) / 10));
                                     dialog.getNewState().setText(Long.toString( Math.round(calculatedState * 10) / 10));
+
                                     dialog.getCards().show(dialog.getContentPane(), "TRAVEL-RESULT");
-                                    model.fireTableDataChanged();
+                                    TransportBD.updateStateInDB(dialog.getFoundTransport().getName(), calculatedState, model);
                                 }
                                 else {
                                     JOptionPane.showMessageDialog(dialog, "Состояние транспорта не позволяет" +
                                             "совершить такую поездку");
                                 }
                             }
-                            catch (NumberFormatException exc) {
+                            catch (NumberFormatException ex) {
                                 JOptionPane.showMessageDialog(dialog, "В поле должны быть только числа");
+                            } catch (ClassNotFoundException ex) {
+                                JOptionPane.showMessageDialog(dialog, "Class not found");
+                            } catch (SQLException ex) {
+                                JOptionPane.showMessageDialog(dialog, ex.getMessage());
                             }
                         }
                     }

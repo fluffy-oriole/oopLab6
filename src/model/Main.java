@@ -20,7 +20,6 @@ public class Main {
             System.out.println("SQL exception");
             return;
         }
-
         Controller controller = new Controller();
         controller.execute(mainFrame, model);
     }

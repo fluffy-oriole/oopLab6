@@ -6,6 +6,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.BorderUIResource;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
+import java.util.Objects;
 
 import static javax.swing.SwingConstants.CENTER;
 
@@ -92,7 +93,7 @@ public class MainFrame extends JFrame {
         JTableHeader header = table.getTableHeader();
         header.setForeground(Color.BLACK);
         header.setBackground(secondColor);
-        table.setSelectionBackground(mainColor);
+        table.setSelectionBackground(new Color(166, 199, 255));
         table.setSelectionForeground(textColor);
 
         JScrollPane pane = new JScrollPane(table);
@@ -148,7 +149,6 @@ public class MainFrame extends JFrame {
         JLabel typeFilterLabel = new JLabel("Тип");
         typeFilterLabel.setHorizontalAlignment(CENTER);
         filterPanel.add(typeFilterLabel);
-
 
         carCheckBox.setSelected(true);
         carCheckBox.setBackground(secondColor);
