@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Objects;
@@ -39,7 +40,7 @@ public class Transport_company {
         }
         return null;
     }
-    public static void add_transport(Transport transport){
+    public static void add_transport(Transport transport) {
         if (Objects.equals(transport.getType(), "Машина")){
             Car car = (Car)transport;
             cars.add(car);

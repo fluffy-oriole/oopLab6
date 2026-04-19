@@ -18,7 +18,6 @@ public class DeleteDialog extends JDialog {
     }
 
     public DeleteDialog() {
-        // JDialog deleteDialog = new JDialog();
         setSize(400, 200);
         JPanel deletePanel = new JPanel(new GridLayout(3, 1, 0, 15));
         deletePanel.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50));
@@ -27,6 +26,10 @@ public class DeleteDialog extends JDialog {
         deleteLabel.setHorizontalAlignment(CENTER);
         deletePanel.add(deleteLabel);
         deletePanel.add(deleteTextField);
+        deleteButton.setBackground(MainFrame.mainColor);
+        deleteButton.setForeground(MainFrame.textColor);
+        deleteButton.setFocusPainted(false);
+        deleteButton.setBorderPainted(false);
         deletePanel.add(deleteButton);
         setVisible(true);
     }

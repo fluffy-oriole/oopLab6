@@ -9,9 +9,7 @@ public class Main {
     public static void main(String[] args) {
         MainFrame mainFrame = new MainFrame("Транспортная компания");
         TransportTable model = new TransportTable();
-        TransportBD bd = new TransportBD();
         try {
-            bd.connectToBD();
             TransportBD.readDB(model);
         }
         catch (ClassNotFoundException e) {

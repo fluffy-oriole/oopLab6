@@ -75,7 +75,6 @@ public class FindDialog extends JDialog {
 
 
     public FindDialog() {
-        // JDialog dialog = new JDialog();
         setSize(400, 300);
         foundTransport = null;
 
@@ -92,6 +91,10 @@ public class FindDialog extends JDialog {
 
         findTransportCard.add(transportToFindTextField);
 
+        acceptButton.setBackground(MainFrame.mainColor);
+        acceptButton.setForeground(MainFrame.textColor);
+        acceptButton.setFocusPainted(false);
+        acceptButton.setBorderPainted(false);
         findTransportCard.add(acceptButton);
 
         JPanel foundTransportCard = new JPanel(new BorderLayout());
@@ -119,15 +122,16 @@ public class FindDialog extends JDialog {
         foundTransportState.setHorizontalAlignment(CENTER);
         foundTransportLabels.add(foundTransportState);
 
-
-
-
         JPanel foundTransportButtons = new JPanel(new GridLayout(3, 1, 0, 15));
         foundTransportCard.add(foundTransportLabels, BorderLayout.CENTER);
         JLabel inputKmToTravelLabel = new JLabel("Введите растояние поездки (в км)");
         foundTransportButtons.add(inputKmToTravelLabel);
         foundTransportButtons.add(travelLengthInput);
 
+        makeTravelButton.setBackground(MainFrame.mainColor);
+        makeTravelButton.setForeground(MainFrame.textColor);
+        makeTravelButton.setFocusPainted(false);
+        makeTravelButton.setBorderPainted(false);
         foundTransportButtons.add(makeTravelButton);
 
         foundTransportCard.add(foundTransportButtons, BorderLayout.SOUTH);
@@ -135,12 +139,13 @@ public class FindDialog extends JDialog {
         foundTransportCard.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50));
         add(foundTransportCard, "TRAVEL");
 
-
-
-
-
+        closeButton.setBackground(MainFrame.mainColor);
+        closeButton.setForeground(MainFrame.textColor);
+        closeButton.setFocusPainted(false);
+        closeButton.setBorderPainted(false);
         JPanel resultTravel = new JPanel(new BorderLayout());
         resultTravel.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50));
+
         resultTravel.add(closeButton, BorderLayout.SOUTH);
         JPanel resultLabels = new JPanel(new GridLayout(2, 2));
 

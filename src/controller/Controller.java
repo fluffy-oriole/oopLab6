@@ -8,6 +8,7 @@ import view.MainFrame;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.sql.SQLException;
 import java.util.Objects;
 
 public class Controller {
@@ -36,6 +37,30 @@ public class Controller {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if (!Objects.equals(dialog.getTransportNameToAdd().getText(), "")) {
+                            Transport transportToAdd = null;
+                            String type = "";
+                            if (dialog.getBox().getSelectedItem() != null) {
+                                type = dialog.getBox().getSelectedItem().toString();
+                            }
+                            switch (type) {
+                                case "Машина":
+                                    transportToAdd = new Car(dialog.getTransportNameToAdd().getText()); break;
+                                case "Поезд":
+                                    transportToAdd = new Train(dialog.getTransportNameToAdd().getText()); break;
+                                case "Экспресс":
+                                    transportToAdd = new Express(dialog.getTransportNameToAdd().getText()); break;
+                                default:
+                                    break;
+                            }
+                            try {
+                                if (transportToAdd != null)
+                                    TransportBD.writeInDB(transportToAdd, model);
+                            }
+                            catch (SQLException | ClassNotFoundException ex) {
+                                System.out.println(ex.getMessage());
+                                return;
+                            }
+
                             model.addTransport(dialog.getBox().getSelectedIndex() + 1, dialog.getTransportNameToAdd().getText());
                             dialog.dispose();
                         }

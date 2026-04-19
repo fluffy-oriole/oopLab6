@@ -1,10 +1,11 @@
 package model;
 
 import javax.swing.table.AbstractTableModel;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TransportTable extends AbstractTableModel {
-    private static ArrayList<Transport> allTransport = new ArrayList<>();
+    private static final ArrayList<Transport> allTransport = new ArrayList<>();
     private static boolean[] transportTypeFilter = new boolean[] {true, true, true};
     private static double maxStateFilter = 100;
     private static double minStateFilter = 0;
@@ -60,7 +61,7 @@ public class TransportTable extends AbstractTableModel {
                 return "Имя";
             case 3:
                 return "Состояние";
-            default:return "";
+            default: return "";
         }
     }
 
@@ -85,7 +86,7 @@ public class TransportTable extends AbstractTableModel {
         this.changeTable();
     }
 
-    public void addTransport(Transport transportToAdd){
+    public void addTransport(Transport transportToAdd) {
         Transport_company.add_transport(transportToAdd);
         this.changeTable();
     }

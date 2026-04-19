@@ -36,6 +36,7 @@ public class AddDialog extends JDialog {
         label.setHorizontalAlignment(CENTER);
         elementsPanel.add(label);
 
+        box.setBackground(MainFrame.secondColor);
         box.addItem("Машина");
         box.addItem("Поезд");
         box.addItem("Экспресс");
@@ -46,6 +47,10 @@ public class AddDialog extends JDialog {
         elementsPanel.add(label);
         elementsPanel.add(transportNameToAdd, BorderLayout.CENTER);
 
+        dialogButton.setBackground(MainFrame.mainColor);
+        dialogButton.setForeground(MainFrame.textColor);
+        dialogButton.setBorderPainted(false);
+        dialogButton.setFocusPainted(false);
         elementsPanel.add(dialogButton, BorderLayout.SOUTH);
 
         setVisible(true);

@@ -4,6 +4,10 @@ public class Train extends Transport {
     private int time_between_stops = 1;
     private double stop_duration = 0.5;
 
+    public Train(String name) {
+        super(name, 100);
+    }
+
 
     public Train(String name, int state) {
         super(name, state);
