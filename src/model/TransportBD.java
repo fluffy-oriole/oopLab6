@@ -21,19 +21,17 @@ public class TransportBD {
         while(result.next())
         {
             String type = result.getString("value");
-            Transport transportToAdd = null;
-            switch (type) {
-                case "Машина":
-                    transportToAdd = new Car(result.getString("name"), result.getDouble("state")); break;
-                case "Поезд":
-                    transportToAdd = new Train(result.getString("name"), result.getDouble("state")); break;
-                case "Экспресс":
-                    transportToAdd = new Express(result.getString("name"), result.getDouble("state")); break;
-            }
+            Transport transportToAdd = switch (type) {
+                case "Машина" -> new Car(result.getString("name"), result.getDouble("state"));
+                case "Поезд" -> new Train(result.getString("name"), result.getDouble("state"));
+                case "Экспресс" -> new Express(result.getString("name"), result.getDouble("state"));
+                default -> null;
+            };
             if (transportToAdd != null) {
                 model.addTransport(transportToAdd);
             }
         }
+        model.changeTable();
         closeConnection();
     }
 

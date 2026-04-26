@@ -3,6 +3,7 @@ package model;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
+import java.sql.SQLException;
 
 public class FileManager {
 
@@ -45,6 +46,16 @@ public class FileManager {
     }
 
     public static void load_data(JFrame parentFrame, TransportTable model) {
+        try {
+            for (Transport t : Transport_company.getTransports()) {
+                TransportBD.deleteFromDB(t.getName(), model);
+            }
+        }
+        catch (SQLException | ClassNotFoundException e) {
+            return;
+        }
+        Transport_company.getTransports().clear();
+
         FileDialog dialog = new FileDialog(parentFrame);
         dialog.setSize(600, 400);
         dialog.setResizable(true);
@@ -67,23 +78,17 @@ public class FileManager {
                     BufferedReader buffReader = new BufferedReader(reader);
                     int size = Integer.parseInt(buffReader.readLine().trim());
                     String line;
-                    Transport_company.getTransports().clear();
                     for (int i = 0; i < size; i++) {
                         line = buffReader.readLine().trim();
                         String typeToAdd = line.split(" ")[0];
                         String nameToAdd = line.split(" ")[1];
                         double stateToAdd = Double.parseDouble(line.split(" ")[2]);
-                        Transport transportToAdd = null;
-                        switch (typeToAdd) {
-                            case "Машина":
-                                transportToAdd = new Car(nameToAdd, stateToAdd); break;
-                            case "Поезд":
-                                transportToAdd = new Train(nameToAdd, stateToAdd); break;
-                            case "Экспресс":
-                                transportToAdd = new Express(nameToAdd, stateToAdd); break;
-                            default:
-                                throw new IllegalArgumentException("Не удалось распознать тип транспорта");
-                        }
+                        Transport transportToAdd = switch (typeToAdd) {
+                            case "Машина" -> new Car(nameToAdd, stateToAdd);
+                            case "Поезд" -> new Train(nameToAdd, stateToAdd);
+                            case "Экспресс" -> new Express(nameToAdd, stateToAdd);
+                            default -> throw new IllegalArgumentException("Не удалось распознать тип транспорта");
+                        };
                         Transport_company.add_transport(transportToAdd);
                     }
                     model.changeTable();}
