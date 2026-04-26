@@ -1,7 +1,6 @@
 package model;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class TransportBD {
@@ -15,9 +14,7 @@ public class TransportBD {
     }
     public static void readDB(TransportTable model) throws ClassNotFoundException, SQLException
     {
-        Transport_company.getCars().clear();
-        Transport_company.getTrains().clear();
-        Transport_company.getExpresses().clear();
+        Transport_company.getTransports().clear();
         connectToBD();
         stab = transportBD.createStatement();
         result = stab.executeQuery("SELECT * FROM transports as t JOIN transport_types as types ON t.type = types.definition");
@@ -48,7 +45,7 @@ public class TransportBD {
 
     public static void writeInDB(Transport transport, TransportTable model) throws Exception {
         connectToBD();
-        for (Transport vehicle : TransportTable.getAllTransport()) {
+        for (Transport vehicle : Transport_company.getTransports()) {
             if (Objects.equals(vehicle.getName(), transport.getName())) {
                 throw new Exception("Транспорт с таким именем уже существует");
             }

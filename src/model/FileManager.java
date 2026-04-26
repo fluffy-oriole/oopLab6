@@ -5,6 +5,7 @@ import java.awt.*;
 import java.io.*;
 
 public class FileManager {
+
     public static void save_data(Frame parentFrame) {
         FileDialog dialog = new FileDialog(parentFrame, "сохранение", FileDialog.SAVE);
         dialog.setSize(600, 400);
@@ -26,20 +27,9 @@ public class FileManager {
         try {
             File file = new File(path);
             try (FileWriter writer = new FileWriter(file)){
-                writer.write(Integer.toString(Transport_company.getCars().size()) + '\n');
-                for (int i = 0; i < Transport_company.getCars().size(); i++) {
-                    writer.write(Transport_company.getCars().get(i).getName() + ' '
-                            + Transport_company.getCars().get(i).getState() + '\n');
-                }
-                writer.write(Integer.toString(Transport_company.getTrains().size()) +'\n');
-                for (int i = 0; i < Transport_company.getTrains().size(); i++) {
-                    writer.write(Transport_company.getTrains().get(i).getName() + ' ' +
-                            Transport_company.getTrains().get(i).getState() + '\n');
-                }
-                writer.write(Integer.toString(Transport_company.getExpresses().size()) + '\n');
-                for (int i = 0; i < Transport_company.getExpresses().size(); i++) {
-                    writer.write(Transport_company.getExpresses().get(i).getName() + ' ' +
-                            Transport_company.getExpresses().get(i).getState() + '\n');
+                writer.write(Integer.toString(Transport_company.getTransports().size()) + '\n');
+                for (Transport t : Transport_company.getTransports()) {
+                    writer.write(t.getType() + " " + t.getName() + " " + t.getState() + "\n");
                 }
             }
             catch (IOException e) {
@@ -77,25 +67,24 @@ public class FileManager {
                     BufferedReader buffReader = new BufferedReader(reader);
                     int size = Integer.parseInt(buffReader.readLine().trim());
                     String line;
+                    Transport_company.getTransports().clear();
                     for (int i = 0; i < size; i++) {
                         line = buffReader.readLine().trim();
-                        String nameToAdd = line.split(" ")[0];
-                        double stateToAdd = Double.parseDouble(line.split(" ")[1]);
-                        Transport_company.add_transport(new Car(nameToAdd, stateToAdd));
-                    }
-                    size = Integer.parseInt(buffReader.readLine().trim());
-                    for (int i = 0; i < size; i++) {
-                        line = buffReader.readLine().trim();
-                        String nameToAdd = line.split(" ")[0];
-                        double stateToAdd = Double.parseDouble(line.split(" ")[1]);
-                        Transport_company.add_transport(new Train(nameToAdd, stateToAdd));
-                    }
-                    size = Integer.parseInt(buffReader.readLine().trim());
-                    for (int i = 0; i < size; i++) {
-                        line = buffReader.readLine().trim();
-                        String nameToAdd = line.split(" ")[0];
-                        double stateToAdd = Double.parseDouble(line.split(" ")[1]);
-                        Transport_company.add_transport(new Express(nameToAdd, stateToAdd));
+                        String typeToAdd = line.split(" ")[0];
+                        String nameToAdd = line.split(" ")[1];
+                        double stateToAdd = Double.parseDouble(line.split(" ")[2]);
+                        Transport transportToAdd = null;
+                        switch (typeToAdd) {
+                            case "Машина":
+                                transportToAdd = new Car(nameToAdd, stateToAdd); break;
+                            case "Поезд":
+                                transportToAdd = new Train(nameToAdd, stateToAdd); break;
+                            case "Экспресс":
+                                transportToAdd = new Express(nameToAdd, stateToAdd); break;
+                            default:
+                                throw new IllegalArgumentException("Не удалось распознать тип транспорта");
+                        }
+                        Transport_company.add_transport(transportToAdd);
                     }
                     model.changeTable();}
                 catch (IOException e) {
@@ -103,7 +92,7 @@ public class FileManager {
                 }
             }
             catch (IllegalArgumentException e){
-                JOptionPane.showMessageDialog(parentFrame, "Поврежденный или неправильный файл");
+                JOptionPane.showMessageDialog(parentFrame, "Поврежденный или неправильный файл" + e.getMessage());
             }
             catch (Exception e){
                 JOptionPane.showMessageDialog(parentFrame, "Произошла неизвестная ошибка");

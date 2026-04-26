@@ -22,7 +22,7 @@ public class DeleteDialog extends JDialog {
         JPanel deletePanel = new JPanel(new GridLayout(3, 1, 0, 15));
         deletePanel.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50));
         add(deletePanel);
-        JLabel deleteLabel = new JLabel("Введите номер строки для удаления");
+        JLabel deleteLabel = new JLabel("Введите имя транспорта для удаления");
         deleteLabel.setHorizontalAlignment(CENTER);
         deletePanel.add(deleteLabel);
         deletePanel.add(deleteTextField);
